@@ -1,0 +1,22 @@
+{
+  "name": "pricewatch",
+  "version": "0.1.0",
+  "description": "Accurate crypto coin/token price watching bot.",
+  "main": "src/index.js",
+  "repository": "https://github.com/arenmarsden/pricewatch",
+  "author": "Aren Marsden",
+  "license": "MIT",
+  "scripts": {
+    "dev:start": "nodemon src/index.js"
+  },
+  "private": false,
+  "devDependencies": {
+    "dotenv": "^9.0.2",
+    "eslint": "^7.26.0",
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
+}
