@@ -6,11 +6,11 @@ const axios = require('axios').default;
 
 const pancakeSwapUrl = 'https://api.pancakeswap.info/api/tokens';
 
-async function getPricePancakeSwap(contactAddress) {
+async function getPricePancakeSwap(contractAddress) {
   try {
     const rsp = axios.get(pancakeSwapUrl);
     if (rsp) {
-      const data = (await rsp).data['data'][`${contactAddress}`]
+      const data = (await rsp).data['data'][`${contractAddress}`]
       return {
         price: parseFloat(data['price']).toFixed(9),
         provider: 'PancakeSwap'

@@ -4,11 +4,12 @@
 
 // Setup the classes for discord.js
 const {Client, Intents, Collection} = require('discord.js');
+const fs = require('fs');
 // Require our configuration.
 const config = require('../config.json');
 
 const util = require('./util/util');
-const mongo = require('mongo');
+const mongo = require('./mongo');
 
 // Create new Discord client with all intentions.
 const client = new Client({
@@ -29,18 +30,23 @@ client.aliases = new Collection();
  * @returns {Promise<void>}
  */
 async function init() {
-  await mongo.connect();
+  const eventFiles = fs.readdirSync(__dirname + '/event');
+  for (const eventFile of eventFiles) {
+    if (!eventFile.endsWith('.js')) {
+      console.error(`Found ${eventFile} without a .js ending.`);
+      continue;
+    }
+    const event = require(__dirname + `/event/${eventFile}`);
+    const eventName = eventFile.split('.')[0];
+    client.on(eventName, event.bind(null, client));
+  }
 
+  //await mongo.connect();
   // Asynchronously wait for our client to login successfully.
   await client.login(config.token);
 }
 
-client.on('message', async msg => {
-  if (msg.content === '!pricewatch') {
-    let rsp = await util.getPricePancakeSwap('0x2A9718defF471f3Bb91FA0ECEAB14154F150a385')
-    console.log(rsp);
-  }
-});
-
 init().catch(err => console.error(err));
+
+module.exports = client;
 

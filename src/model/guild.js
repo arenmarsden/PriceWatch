@@ -1,8 +1,13 @@
-const {mongoose} = require('../mongo');
+// Copyright (c) Aren Marsden 2021. Licensed under MIT License.
 
-const Guild = mongoose.model('Guild', {
+'use strict';
+
+const { Schema } = require('mongoose');
+
+const guildSchema = new Schema({
   id: Number,
   tokens: {},
 });
 
-module.exports = Guild;
+
+module.exports = guildSchema;
