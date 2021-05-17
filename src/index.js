@@ -8,9 +8,6 @@ const fs = require('fs');
 // Require our configuration.
 const config = require('../config.json');
 
-const util = require('./util/util');
-const mongo = require('./mongo');
-
 // Create new Discord client with all intentions.
 const client = new Client({
   ws: {
@@ -30,6 +27,7 @@ client.aliases = new Collection();
  * @returns {Promise<void>}
  */
 async function init() {
+  // Initialise events.
   const eventFiles = fs.readdirSync(__dirname + '/event');
   for (const eventFile of eventFiles) {
     if (!eventFile.endsWith('.js')) {
@@ -41,7 +39,6 @@ async function init() {
     client.on(eventName, event.bind(null, client));
   }
 
-  //await mongo.connect();
   // Asynchronously wait for our client to login successfully.
   await client.login(config.token);
 }
