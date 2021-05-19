@@ -2,12 +2,12 @@
 
 'use strict';
 
-const { Schema } = require('mongoose');
+const { mongoose, Schema } = require('mongoose');
 
 const guildSchema = new Schema({
   id: Number,
   tokens: {},
+  jobs: {}
 });
-
 
 module.exports = guildSchema;

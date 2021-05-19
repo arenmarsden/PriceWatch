@@ -7,6 +7,7 @@ const {Client, Intents, Collection} = require('discord.js');
 const fs = require('fs');
 // Require our configuration.
 const config = require('../config.json');
+const util = require('./util/util');
 
 // Create new Discord client with all intentions.
 const client = new Client({
@@ -27,6 +28,18 @@ client.aliases = new Collection();
  * @returns {Promise<void>}
  */
 async function init() {
+  const cmdFiles = fs.readdirSync(__dirname + '/cmd');
+  for (const cmdFile of cmdFiles) {
+    if (!cmdFile.endsWith('.js')) {
+      console.error(`Found ${cmdFile} without a .js ending.`);
+      continue;
+    }
+    const rsp = util.loadCommand(client, cmdFile);
+    if (rsp) {
+      console.log(rsp);
+    }
+  }
+
   // Initialise events.
   const eventFiles = fs.readdirSync(__dirname + '/event');
   for (const eventFile of eventFiles) {

@@ -22,6 +22,23 @@ async function getPricePancakeSwap(contractAddress) {
   }
 }
 
+function loadCommand(client, commandName) {
+  try {
+    console.log(`Loading command ${commandName}`);
+    const props = require(`../cmd/${commandName}`);
+    if (props.init) {
+      props.init(client);
+    }
+    client.commands.set(props.help.name, props);
+    props.conf.aliases.forEach(alias => {
+      client.aliases.set(alias, props.help.name);
+    });
+  } catch (e) {
+    return `Unable to load command ${commandName}: ${e}`;
+  }
+}
+
 module.exports = {
-  getPricePancakeSwap
+  getPricePancakeSwap,
+  loadCommand
 }
