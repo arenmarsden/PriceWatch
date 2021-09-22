@@ -19,6 +19,6 @@
   "dependencies": {
     "axios": "^0.21.2",
     "discord.js": "^12.5.3",
-    "mongoose": "^5.12.9"
+    "mongoose": "^6.0.7"
   }
 }
