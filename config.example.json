@@ -1,12 +1,9 @@
 {
   "token": "INSERT_TOKEN",
-  "bscScan": {
-    "api_token": "API_TOKEN"
-  },
   "mongo": {
     "uri": ""
   },
   "cmd": {
-    "prefix": "p!"
+    "prefix": "p."
   }
 }
